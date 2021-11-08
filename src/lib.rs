@@ -8,11 +8,10 @@ struct FeatureTable {
 
 #[pymethods]
 impl FeatureTable {
-
     #[new]
     fn new() -> Self {
         FeatureTable {
-            ft: featuretable::FeatureTable::new()
+            ft: featuretable::FeatureTable::new(),
         }
     }
 
@@ -26,6 +25,14 @@ impl FeatureTable {
 
     fn word_to_vectors(&self, s: &str) -> Vec<Vec<i8>> {
         self.ft.phonemes_to_vectors(&self.ft.phonemes(s))
+    }
+
+    fn word_to_binary_vectors(&self, s: &str) -> Vec<Vec<i8>> {
+        self.ft
+            .phonemes_to_vectors(&self.ft.phonemes(s))
+            .iter()
+            .map(|f| f.iter().map(|g| *g.max(&0)).collect::<Vec<i8>>())
+            .collect::<Vec<Vec<i8>>>()
     }
 
     fn feature_edit_distance(&self, s1: &str, s2: &str) -> f64 {
