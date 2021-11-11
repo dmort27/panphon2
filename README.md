@@ -17,3 +17,5 @@ The main class in PanPhon2 is `FeatureTable`. To instantiate a `FeatureTable`, t
 `word_to_vectors(str) -> [[int]]` Takes an IPA string and returns a list of lists of numberic feature values.
 
 `feature_edit_distance(str, str) -> float` Takes two IPA strings and returns the feature-weighted distance between them.
+
+`word_to_bag_of_features` Takes an IPA string and returns a vector of the sums of each dimension in the feature vectors corresponding to the phonemes.
