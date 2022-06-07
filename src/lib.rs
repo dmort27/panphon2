@@ -20,16 +20,16 @@ impl FeatureTable {
     }
 
     fn phonemes_to_vectors(&self, ps: Vec<String>) -> Vec<Vec<i8>> {
-        self.ft.phonemes_to_vectors(&ps)
+        self.ft.phonemes_to_vectors(ps)
     }
 
     fn word_to_vectors(&self, s: &str) -> Vec<Vec<i8>> {
-        self.ft.phonemes_to_vectors(&self.ft.phonemes(s))
+        self.ft.phonemes_to_vectors(self.ft.phonemes(s))
     }
 
     fn word_to_binary_vectors(&self, s: &str) -> Vec<Vec<i8>> {
         self.ft
-            .phonemes_to_vectors(&self.ft.phonemes(s))
+            .phonemes_to_vectors(self.ft.phonemes(s))
             .iter()
             .map(|f| f.iter().map(|g| *g.max(&0)).collect::<Vec<i8>>())
             .collect::<Vec<Vec<i8>>>()
@@ -38,7 +38,7 @@ impl FeatureTable {
     fn word_to_bag_of_features(&self, s: &str) -> Vec<i8> {
         let mut tensor = self
             .ft
-            .phonemes_to_vectors(&self.ft.phonemes(s))
+            .phonemes_to_vectors(self.ft.phonemes(s))
             .iter()
             .map(|f| f.iter().map(|g| *g.max(&0)).collect::<Vec<i8>>())
             .collect::<Vec<Vec<i8>>>();
